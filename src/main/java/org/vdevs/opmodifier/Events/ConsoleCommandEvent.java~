@@ -1,0 +1,35 @@
+package org.vdevs.opmodifier.Events;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.vdevs.opmodifier.OPModifier;
+
+public class ConsoleCommandEvent implements Listener {
+    private final OPModifier plugin;
+
+    public ConsoleCommandEvent(final OPModifier plugin) {
+        this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onPluginCommandPreProcess(final PlayerCommandPreprocessEvent event) {
+        CommandSender sender = event.getPlayer();  // Получаваме изпращача (играч)
+
+        // Проверка дали командата е изпълнена от конзолата
+        if (sender instanceof ConsoleCommandSender) { // Това ще бъде вярно за конзолата
+            String command = event.getMessage().toLowerCase();
+
+            // Проверка дали командата е в списъка с блокирани команди
+            if (plugin.getConfig().getStringList("blocked_console_commands").contains(command)) {
+                event.setCancelled(true);
+
+                // Показване на съобщение, ако командата е забранена
+                plugin.getLogger().warning(plugin.getConfig().getString("messages.console_command_not_allowed")
+                        .replace("%command%", event.getMessage()));
+            }
+        }
+    }
+}

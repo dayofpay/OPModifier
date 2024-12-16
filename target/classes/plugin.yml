@@ -1,0 +1,9 @@
+name: OPModifier
+version: '1.0-SNAPSHOT'
+main: org.vdevs.opmodifier.OPModifier
+author: dayofpay
+website: https://v-devs.eu
+commands:
+    opmodifier:
+        description: '/opmodifier'
+        permission: opmodify.admin

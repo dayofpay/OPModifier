@@ -1,0 +1,159 @@
+# Messages Section:
+# These messages are used to notify players, admins, and the console when certain actions or commands are blocked.
+messages:
+  # This is the prefix used for all messages in the plugin. It adds a consistent identifier to each message sent.
+  plugin_prefix: "&7[&eOPModifier&7] "
+
+  # Message displayed when an invalid category is provided by the user. This informs them of the valid options.
+  invalid_category: "&cInvalid category. Use one of the following: blocked_items_use, blocked_items_pickup, blocked_items_drop, blocked_items_move."
+
+  # Message displayed when a non-player (console or command block) tries to execute a command intended for players.
+  not_player: "&cThis command can only be executed by a player."
+
+  # Message shown when the player is not holding any item in their hand, which is required for certain commands.
+  not_holding_item: "&cYou are not holding any item in your hand."
+
+  # Message displayed when an item is successfully added to the blocked category.
+  item_added: "&e%item% has been added to the %category%."
+
+  # Message displayed when the item is already in the specified category.
+  item_already_in_category: "&c%item% is already in %category%."
+
+  # Message displayed when an item is successfully removed from the blocked category.
+  item_removed: "&e%item% has been removed from the %category%."
+
+  # Message shown when the item is not found in the specified category for removal.
+  item_not_in_category: "&c%item% is not in %category%."
+
+  # Message sent to the player when they try to execute a blocked command.
+  command_not_allowed: "&c%player% , this command is not allowed !"
+
+  # Message displayed when a console command is blocked (not allowed to execute certain commands from the console).
+  console_command_not_allowed: "&cthis console command (%command%) is not allowed !"
+
+  # Notification message sent to admins when a player tries to execute a blocked command.
+  admin_notification: "&c%player% , tried to execute non allowed command : &e %command% !"
+
+  # Console log message when a player tries to execute a blocked command. This helps in tracking blocked actions.
+  console_notification: "%player% tried to execute non allowed command : %command%"
+
+  # Message displayed to the player when they try to place blocks but don't have the necessary permission.
+  not_allowed_to_place_blocks: "&c%player% , you are not allowed to place blocks !"
+
+  # Message displayed to the player when they try to break blocks but don't have the necessary permission.
+  not_allowed_to_break_blocks: "&c%player% , you are not allowed to break blocks !"
+
+  # Message displayed to the player when they try to use an item that's blocked for them.
+  not_allowed_to_use_item: "&c%player% , you are not allowed to use %item% !"
+
+  # Message displayed to the player when they try to pick up an item that's blocked for them.
+  not_allowed_to_pickup_item: "&c%player% , you are not allowed to pick up %item% !"
+
+  # Message displayed to the player when they try to drop an item that's blocked for them.
+  not_allowed_to_drop_item: "&c%player% , you are not allowed to drop %item% !"
+
+  # Message displayed to the player when they try to move an item in their inventory that's blocked for them.
+  not_allowed_to_move_item: "&c%player% , you are not allowed to move %item% !"
+
+  # Message displayed to the player when they try to teleport without permission.
+  not_allowed_to_teleport: "&c%player% , you are not allowed to teleport !"
+
+  # Message displayed to the player when they try to chat without permission.
+  not_allowed_to_chat: "&c%player% , you are not allowed to chat !"
+
+# Settings Section:
+# These are global settings that configure how the plugin behaves.
+settings:
+  # Whether to notify admins when a blocked action is attempted by a player. If true, admins will receive a message.
+  notify_admins: true
+
+  # Whether to log blocked actions to the console. If true, each blocked action will be logged.
+  log_console: true
+
+# Blocked Commands Section:
+# Lists all commands that are blocked for players to execute.
+blocked_commands:
+  # List of commands that players are not allowed to execute.
+  # If a player tries to run any of these commands, it will be blocked.
+  - /op  # Blocks the /op command which grants operator privileges
+  - /deop  # Blocks the /deop command which removes operator privileges
+  - /asd  # Example custom blocked command
+
+# Blocked Console Commands Section:
+# Specifies commands that are blocked when run from the console.
+blocked_console_commands:
+  # List of commands that cannot be executed by the console.
+  # Any attempt to run these commands from the console will be blocked.
+  - /op  # Prevents granting operator status through console
+
+# Blocked Actions Section:
+# Defines the types of events or actions that should be blocked when executed by a player.
+blocked_actions:
+  # List of events that should be blocked, preventing players from performing these actions.
+  # Each entry represents a specific event type that will be canceled if a player attempts to perform the action.
+  #- BlockPlaceEvent      # Blocks players from placing blocks.
+  #- BlockBreakEvent      # Blocks players from breaking blocks.
+  - CommandEvent         # Blocks players from running certain commands.
+  - ItemUse              # Blocks players from using specific items.
+  - ItemPickUp           # Blocks players from picking up specific items.
+  - ItemDrop             # Blocks players from dropping specific items.
+  - InventoryClick       # Blocks players from interacting with their inventory.
+  #- PlayerTeleport       # Blocks players from teleporting.
+  #- PlayerChat           # Blocks players from chatting.
+
+# Blocked Items Section:
+# These lists define the specific items that are blocked in various player interactions.
+blocked_items_use:
+  # List of items that players are not allowed to use (e.g., consuming).
+  - GOLDEN_APPLE  # Players cannot eat or use golden apples.
+
+blocked_items_pickup:
+  # List of items that players are not allowed to pick up from the ground.
+  - GOLDEN_APPLE  # Players cannot pick up golden apples.
+
+blocked_items_drop:
+  # List of items that players are not allowed to drop from their inventory.
+  - GOLDEN_APPLE  # Players cannot drop golden apples.
+
+blocked_items_move:
+  # List of items that players are not allowed to move within their inventory.
+  - GOLDEN_APPLE  # Players cannot move golden apples in their inventory.
+
+# Violations Section:
+# Each blocked action has a potential punishment tied to it, specifying whether a punishment should be applied and the command to execute if so.
+violations:
+  BlockPlaceEvent:
+    punishment: false  # Enable punishment for this action
+    punish_command: "/kick %player% You are not allowed to place blocks."  # Command to execute when punishment is applied
+
+  BlockBreakEvent:
+    punishment: false
+    punish_command: "/kick %player% You are not allowed to break blocks."
+
+  CommandEvent:
+    punishment: true
+    punish_command: "/kick %player% You are not allowed to use commands."
+
+  ItemUse:
+    punishment: false
+    punish_command: "/ban %player% You are not allowed to use items."
+
+  ItemPickUp:
+    punishment: false  # No punishment for picking up blocked items
+    punish_command: ""  # No command to execute
+
+  ItemDrop:
+    punishment: false
+    punish_command: "/tempban %player% You are not allowed to drop items."
+
+  InventoryClick:
+    punishment: false  # No punishment for clicking in inventory
+    punish_command: ""  # No command to execute
+
+  PlayerTeleport:
+    punishment: false
+    punish_command: "/kick %player% You are not allowed to teleport."
+
+  PlayerChat:
+    punishment: false
+    punish_command: "/mute %player% You are not allowed to chat."

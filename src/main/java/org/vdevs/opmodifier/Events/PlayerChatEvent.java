@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
 import org.vdevs.opmodifier.OPModifier;
+import org.vdevs.opmodifier.Utils.ActionDeserializer;
 
 public class PlayerChatEvent implements Listener {
     private final OPModifier plugin;
@@ -15,7 +16,8 @@ public class PlayerChatEvent implements Listener {
     }
 @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
-        if (event.getPlayer().isOp()) {
+    ActionDeserializer actionDeserializer = new ActionDeserializer(plugin);
+        if (!actionDeserializer.isWhitelistedPlayer(event.getPlayer().getName()) && actionDeserializer.isBlockedAction("PlayerChat") && event.getPlayer().isOp()) {
             PlayerHelper playerHelper = new PlayerHelper(plugin);
             playerHelper.sendMessage(event.getPlayer(), plugin.getConfig().getString("messages.not_allowed_to_chat").replace("%player%", event.getPlayer().getName()));
             event.setCancelled(true);

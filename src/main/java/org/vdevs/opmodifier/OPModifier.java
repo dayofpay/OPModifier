@@ -1,22 +1,27 @@
 package org.vdevs.opmodifier;
 
-import org.bukkit.Bukkit;
+import com.tchristofferson.configupdater.ConfigUpdater;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.vdevs.opmodifier.Commands.OPModifyCommand;
 import org.vdevs.opmodifier.Events.*;
+import org.vdevs.opmodifier.Handlers.UpdateHandler;
 import org.vdevs.opmodifier.Utils.ActionDeserializer;
-
-import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 
 public final class OPModifier extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
-
         getLogger().info("OPModifier has been loaded");
         getCommand("opmodifier").setExecutor((new OPModifyCommand(this)));
         registerConditionalListeners();
+        UpdateHandler updateHandler = new UpdateHandler(this);
+        updateHandler.checkConfigUpdates();
+
     }
 
     @Override
@@ -69,4 +74,9 @@ public final class OPModifier extends JavaPlugin {
             getLogger().info("PlayerChat listener registered.");
         }
     }
+
+
+
+
+
 }

@@ -23,4 +23,11 @@ public class ActionDeserializer {
 
         return blockedActions.contains(action);
     }
+
+    public boolean isWhitelistedPlayer(final String player){
+
+        List<String> whitelistedPlayers = plugin.getConfig().getStringList("whitelisted_players");
+
+        return whitelistedPlayers.contains(player);
+    }
 }

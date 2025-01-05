@@ -21,7 +21,7 @@ public class BlockBreakEvent implements Listener {
         Player player = block.getPlayer();
 
 
-        if (actionDeserializer.isBlockedAction("BlockBreakEvent") && player.isOp() && !actionDeserializer.isWhitelistedPlayer(player.getName())) {
+        if (actionDeserializer.isBlockedAction("BlockBreakEvent") && player.isOp()) {
             block.setCancelled(true);
 
 

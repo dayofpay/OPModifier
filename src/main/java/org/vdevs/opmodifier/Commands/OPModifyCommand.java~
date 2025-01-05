@@ -22,7 +22,7 @@ public class OPModifyCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         PlayerHelper playerHelper = new PlayerHelper(plugin);
-        if(args.length >= 1 && args[0].equals("reload")){
+        if(args.length >= 1 && args[1].equals("reload")){
             if(sender.hasPermission("opmodifier.admin")){
                 try{
                     plugin.reloadConfig();

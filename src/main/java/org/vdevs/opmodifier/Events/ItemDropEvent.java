@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
 import org.vdevs.opmodifier.OPModifier;
+import org.vdevs.opmodifier.Utils.ActionDeserializer;
 
 public class ItemDropEvent implements Listener {
     private final OPModifier plugin;
@@ -20,9 +21,9 @@ public class ItemDropEvent implements Listener {
         Player player = event.getPlayer();
         Material itemMaterial = event.getItemDrop().getItemStack().getType();
         PlayerHelper playerHelper = new PlayerHelper(plugin);
+        ActionDeserializer actionDeserializer = new ActionDeserializer(plugin);
 
-
-        if (plugin.getConfig().getStringList("blocked_items_drop").contains(itemMaterial.toString())
+        if (!actionDeserializer.isWhitelistedPlayer(player.getName()) && plugin.getConfig().getStringList("blocked_items_drop").contains(itemMaterial.toString())
                 && player.isOp()) {
 
 

@@ -4,6 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
 import org.vdevs.opmodifier.OPModifier;
+import org.vdevs.opmodifier.Utils.ActionDeserializer;
 
 public class PlayerTeleportEvent implements Listener {
     private final OPModifier plugin;
@@ -13,7 +14,8 @@ public class PlayerTeleportEvent implements Listener {
     }
     @EventHandler
     public void onTeleport(org.bukkit.event.player.PlayerTeleportEvent event){
-        if(event.getPlayer().isOp()){
+        ActionDeserializer actionDeserializer = new ActionDeserializer(plugin);
+        if( !actionDeserializer.isWhitelistedPlayer(event.getPlayer().getName()) && actionDeserializer.isBlockedAction("PlayerTeleport") && event.getPlayer().isOp()){
             PlayerHelper playerHelper = new PlayerHelper(plugin);
             playerHelper.sendMessage(event.getPlayer(), plugin.getConfig().getString("messages.not_allowed_to_teleport").replace("%player%", event.getPlayer().getName()));
             event.setCancelled(true);

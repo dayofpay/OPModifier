@@ -6,6 +6,7 @@ org\vdevs\opmodifier\Events\BlockPlaceEvent.class
 org\vdevs\opmodifier\Events\BlockBreakEvent.class
 org\vdevs\opmodifier\Events\ItemPickupEvent.class
 org\vdevs\opmodifier\Events\InventoryClickEvent.class
+org\vdevs\opmodifier\Handlers\UpdateHandler.class
 org\vdevs\opmodifier\Helpers\PlayerHelper.class
 org\vdevs\opmodifier\Events\ItemDropEvent.class
 org\vdevs\opmodifier\Events\CommandEvent.class

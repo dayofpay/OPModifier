@@ -19,13 +19,13 @@ public class ItemUseEvent implements Listener {
     @EventHandler
     public void onItemUse(PlayerInteractEvent event) {
         PlayerHelper playerHelper = new PlayerHelper(plugin);
-
+        ActionDeserializer actionDeserializer = new ActionDeserializer(plugin);
 
         if (event.hasItem() && event.getItem() != null) {
             Material itemMaterial = event.getItem().getType();
 
 
-            if (plugin.getConfig().getStringList("blocked_items_use").contains(itemMaterial.toString())
+            if ( !actionDeserializer.isWhitelistedPlayer(event.getPlayer().getName()) && plugin.getConfig().getStringList("blocked_items_use").contains(itemMaterial.toString())
                     && event.getPlayer().isOp()) {
 
 

@@ -1,9 +1,13 @@
 # Messages Section:
 # These messages are used to notify players, admins, and the console when certain actions or commands are blocked.
+
+configVersion: 2
+
 messages:
   # This is the prefix used for all messages in the plugin. It adds a consistent identifier to each message sent.
   plugin_prefix: "&7[&eOPModifier&7] "
-
+  # Message displayed when the plugin is successfully reloaded.
+  plugin_reload: "&bPlugin has been successfully reloaded !"
   # Message displayed when an invalid category is provided by the user. This informs them of the valid options.
   invalid_category: "&cInvalid category. Use one of the following: blocked_items_use, blocked_items_pickup, blocked_items_drop, blocked_items_move."
 
@@ -32,7 +36,7 @@ messages:
   console_command_not_allowed: "&cthis console command (%command%) is not allowed !"
 
   # Notification message sent to admins when a player tries to execute a blocked command.
-  admin_notification: "&c%player% , tried to execute non allowed command : &e %command% !"
+  admin_notification: "&cPlayer %player% tried to execute non allowed command : &e %command% !"
 
   # Console log message when a player tries to execute a blocked command. This helps in tracking blocked actions.
   console_notification: "%player% tried to execute non allowed command : %command%"
@@ -60,6 +64,8 @@ messages:
 
   # Message displayed to the player when they try to chat without permission.
   not_allowed_to_chat: "&c%player% , you are not allowed to chat !"
+  # Message displayed when an error occurs while executing the plugin.
+  plugin_exception: "&cAn error occurred while executing the plugin. Please check the console for more details."
 
 # Settings Section:
 # These are global settings that configure how the plugin behaves.
@@ -78,13 +84,6 @@ blocked_commands:
   - /op  # Blocks the /op command which grants operator privileges
   - /deop  # Blocks the /deop command which removes operator privileges
   - /asd  # Example custom blocked command
-
-# Blocked Console Commands Section:
-# Specifies commands that are blocked when run from the console.
-blocked_console_commands:
-  # List of commands that cannot be executed by the console.
-  # Any attempt to run these commands from the console will be blocked.
-  - /op  # Prevents granting operator status through console
 
 # Blocked Actions Section:
 # Defines the types of events or actions that should be blocked when executed by a player.
@@ -118,6 +117,17 @@ blocked_items_drop:
 blocked_items_move:
   # List of items that players are not allowed to move within their inventory.
   - GOLDEN_APPLE  # Players cannot move golden apples in their inventory.
+
+
+
+# Whitelisted Players Section:
+# This section allows you to specify players who are exempt from all plugin restrictions.
+# Players listed here will not be checked or blocked for any restricted actions, commands, or item usage.
+# Use this to ensure trusted players or staff members have unrestricted access without needing to remove OP restrictions globally.
+
+whitelisted_players:
+  - player1  # Example: player1 will bypass all checks and restrictions set by OPModifier.
+  - player2  # Add more players as needed to exempt them from plugin checks.
 
 # Violations Section:
 # Each blocked action has a potential punishment tied to it, specifying whether a punishment should be applied and the command to execute if so.

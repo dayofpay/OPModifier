@@ -7,6 +7,7 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.vdevs.opmodifier.OPModifier;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
+import org.vdevs.opmodifier.Utils.ActionDeserializer;
 
 public class InventoryClickEvent implements Listener {
     private final OPModifier plugin;
@@ -18,12 +19,12 @@ public class InventoryClickEvent implements Listener {
     @EventHandler
     public void onInventoryClick(org.bukkit.event.inventory.InventoryClickEvent event) {
         PlayerHelper playerHelper = new PlayerHelper(plugin);
-
+        ActionDeserializer actionDeserializer = new ActionDeserializer(plugin);
         Player player = (Player) event.getWhoClicked();
         if (event.getClickedInventory() != null && event.getClickedInventory().getType() == InventoryType.PLAYER) {
 
 
-            if (plugin.getConfig().getStringList("blocked_items_move").contains(event.getCurrentItem().getType().toString()) && player.isOp()) {
+            if (plugin.getConfig().getStringList("blocked_items_move").contains(event.getCurrentItem().getType().toString()) && player.isOp() && !actionDeserializer.isWhitelistedPlayer(player.getName())) {
 
 
                 event.setCancelled(true);
@@ -47,12 +48,12 @@ public class InventoryClickEvent implements Listener {
 
     @EventHandler
     public void onInventoryMoveItem(InventoryMoveItemEvent event) {
-
+        ActionDeserializer actionDeserializer = new ActionDeserializer(plugin);
         if (event.getDestination().getHolder() instanceof Player) {
             Player player = (Player) event.getDestination().getHolder();
 
 
-            if (player.isOp() && plugin.getConfig().getStringList("blocked_items_move").contains(event.getItem().getType().toString())) {
+            if (!actionDeserializer.isWhitelistedPlayer(player.getName()) && player.isOp() && plugin.getConfig().getStringList("blocked_items_move").contains(event.getItem().getType().toString())) {
                 event.setCancelled(true);
                 player.sendMessage(plugin.getConfig().getString("messages.not_allowed_to_move_item")
                         .replace("%player%", player.getName())

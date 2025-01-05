@@ -16,7 +16,7 @@ public class BlockPlaceEvent implements Listener {
     public void onBlockPlace(org.bukkit.event.block.BlockPlaceEvent block){
         ActionDeserializer actionDeserializer = new ActionDeserializer(plugin);
         PlayerHelper playerHelper = new PlayerHelper(plugin);
-        if(actionDeserializer.isBlockedAction("BlockPlaceEvent") && block.getPlayer().isOp()){
+        if(actionDeserializer.isBlockedAction("BlockPlaceEvent") && block.getPlayer().isOp() && !actionDeserializer.isWhitelistedPlayer(block.getPlayer().getName())){
             block.setCancelled(true);
             playerHelper.sendMessage(block.getPlayer(), plugin.getConfig().getString("messages.not_allowed_to_place_blocks").replace("%player%", block.getPlayer().getName()));
         }

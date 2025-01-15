@@ -2,9 +2,11 @@ package org.vdevs.opmodifier.Events;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.vdevs.opmodifier.Handlers.LogHandler;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
 import org.vdevs.opmodifier.OPModifier;
 import org.vdevs.opmodifier.Utils.ActionDeserializer;
+import org.vdevs.opmodifier.Utils.DateUtils;
 
 public class PlayerTeleportEvent implements Listener {
     private final OPModifier plugin;
@@ -23,6 +25,15 @@ public class PlayerTeleportEvent implements Listener {
                 String punishCommand = plugin.getConfig().getString("violations.PlayerTeleport.punish_command")
                         .replace("%player%", event.getPlayer().getName());
                 plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), punishCommand);
+            }
+            if(plugin.getConfig().getBoolean("logger.status.VIOLATION_TELEPORT")){
+                String currentDate = DateUtils.getCurrentDate();
+
+                String message = plugin.getConfig().getString("logger.messages.VIOLATION_TELEPORT")
+                        .replace("%date%", currentDate)
+                        .replace("%player%", event.getPlayer().getName());
+
+                LogHandler.logData(message);
             }
         }
     }

@@ -1,11 +1,11 @@
 # Messages Section:
 # These messages are used to notify players, admins, and the console when certain actions or commands are blocked.
 
-configVersion: 2
+configVersion: 3
 
 messages:
   # This is the prefix used for all messages in the plugin. It adds a consistent identifier to each message sent.
-  plugin_prefix: "&7[&eOPModifier&7] "
+  plugin_prefix: "&e&oᴼᴾᴹᴼᴰᴵᶠᴵᴱᴿ &7» &c"
   # Message displayed when the plugin is successfully reloaded.
   plugin_reload: "&bPlugin has been successfully reloaded !"
   # Message displayed when an invalid category is provided by the user. This informs them of the valid options.
@@ -67,6 +67,88 @@ messages:
   # Message displayed when an error occurs while executing the plugin.
   plugin_exception: "&cAn error occurred while executing the plugin. Please check the console for more details."
 
+# Configuration for the logger module of the plugin. This section controls
+# how violations are logged and whether logging is enabled for specific violation types.
+
+logger:
+  # Messages section contains templates for logging specific violation events.
+  # Use placeholders to dynamically insert event-specific data into the log messages.
+  messages:
+    # Logs when a player attempts to execute a blocked command.
+    # Placeholders:
+    # - %date%: Current date and time of the event.
+    # - %player%: Name of the player triggering the event.
+    # - %command%: The command the player attempted to execute.
+    VIOLATION_COMMAND: "[%date%] %player% tried to execute non allowed command : %command%"
+
+    # Logs when a player attempts to teleport while restricted.
+    # Placeholders:
+    # - %date%: Current date and time of the event.
+    # - %player%: Name of the player triggering the event.
+    VIOLATION_TELEPORT: "[%date%] %player% tried to teleport"
+
+    # Logs when a player attempts to place a blocked block.
+    # Placeholders:
+    # - %date%: Current date and time of the event.
+    # - %player%: Name of the player triggering the event.
+    # - %block%: The block type the player attempted to place.
+    VIOLATION_BLOCK_PLACE: "[%date%] %player% tried to place %block%"
+
+    # Logs when a player attempts to break a blocked block.
+    # Placeholders:
+    # - %date%: Current date and time of the event.
+    # - %player%: Name of the player triggering the event.
+    # - %block%: The block type the player attempted to break.
+    VIOLATION_BLOCK_BREAK: "[%date%] %player% tried to break %block%"
+
+    # Logs when a player sends a blocked chat message.
+    # Placeholders:
+    # - %date%: Current date and time of the event.
+    # - %player%: Name of the player triggering the event.
+    # - %message%: The content of the blocked chat message.
+    VIOLATION_CHAT: "[%date%] %player% tried to send a message to the chat (%message%)"
+
+    # Logs when a player attempts to pick up a blocked item.
+    # Placeholders:
+    # - %date%: Current date and time of the event.
+    # - %player%: Name of the player triggering the event.
+    # - %item%: The item type the player attempted to pick up.
+    VIOLATION_PICKUP: "[%date%] %player% tried to pick up %item%"
+
+    # Logs when a player attempts to drop a blocked item.
+    # Placeholders:
+    # - %date%: Current date and time of the event.
+    # - %player%: Name of the player triggering the event.
+    # - %item%: The item type the player attempted to drop.
+    VIOLATION_DROP: "[%date%] %player% tried to drop %item%"
+
+    # Logs when a player attempts to use a blocked item.
+    # Placeholders:
+    # - %date%: Current date and time of the event.
+    # - %player%: Name of the player triggering the event.
+    # - %item%: The item type the player attempted to use.
+    VIOLATION_USE: "[%date%] %player% tried to use %item%"
+
+    # Logs when a player interacts with their inventory using a blocked item.
+    # Placeholders:
+    # - %date%: Current date and time of the event.
+    # - %player%: Name of the player triggering the event.
+    VIOLATION_INVENTORY_INTERACT: "[%date%] %player% tried to interact with their inventory with disabled item"
+
+  # Status section determines whether logging is enabled for each violation type.
+  # Set to `true` to enable logging or `false` to disable it for the corresponding violation.
+  status:
+    VIOLATION_COMMAND: true  # Log command execution violations
+    VIOLATION_TELEPORT: false  # Log teleportation violations
+    VIOLATION_BLOCK_PLACE: false  # Log block placement violations
+    VIOLATION_BLOCK_BREAK: false  # Log block breaking violations
+    VIOLATION_CHAT: true  # Log chat message violations
+    VIOLATION_PICKUP: false  # Log item pickup violations
+    VIOLATION_DROP: true  # Log item drop violations
+    VIOLATION_USE: false  # Log item use violations
+    VIOLATION_INVENTORY_INTERACT: true  # Log inventory interaction violations
+
+
 # Settings Section:
 # These are global settings that configure how the plugin behaves.
 settings:
@@ -83,7 +165,9 @@ blocked_commands:
   # If a player tries to run any of these commands, it will be blocked.
   - /op  # Blocks the /op command which grants operator privileges
   - /deop  # Blocks the /deop command which removes operator privileges
-  - /asd  # Example custom blocked command
+  - /stop  # Blocks the /stop command which stops the server
+  - /reload  # Blocks the /reload command which reloads the server configuration
+  - /say  # Blocks the /say command which sends a message to all players
 
 # Blocked Actions Section:
 # Defines the types of events or actions that should be blocked when executed by a player.

@@ -5,9 +5,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.vdevs.opmodifier.Handlers.LogHandler;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
 import org.vdevs.opmodifier.OPModifier;
 import org.vdevs.opmodifier.Utils.ActionDeserializer;
+import org.vdevs.opmodifier.Utils.DateUtils;
 
 public class ItemUseEvent implements Listener {
     private final OPModifier plugin;
@@ -40,6 +42,18 @@ public class ItemUseEvent implements Listener {
                             .replace("%player%", event.getPlayer().getName());
                     plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), punishCommand);
                 }
+            }
+            if(plugin.getConfig().getBoolean("logger.status.VIOLATION_USE")){
+                String currentDate = DateUtils.getCurrentDate();
+
+                String message = plugin.getConfig().getString("logger.messages.VIOLATION_USE")
+                        .replace("%date%", currentDate)
+                        .replace("%player%", event.getPlayer().getName())
+                        .replace("%item%", itemMaterial.toString());
+
+
+
+                LogHandler.logData(message);
             }
         }
     }

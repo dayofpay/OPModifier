@@ -5,9 +5,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.vdevs.opmodifier.Handlers.LogHandler;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
 import org.vdevs.opmodifier.OPModifier;
 import org.vdevs.opmodifier.Utils.ActionDeserializer;
+import org.vdevs.opmodifier.Utils.DateUtils;
 
 public class ItemPickupEvent implements Listener {
     private final OPModifier plugin;
@@ -40,6 +42,16 @@ public class ItemPickupEvent implements Listener {
                 String punishCommand = plugin.getConfig().getString("violations.ItemPickUp.punish_command")
                         .replace("%player%", player.getName());
                 plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), punishCommand);
+            }
+            if(plugin.getConfig().getBoolean("logger.status.VIOLATION_PICKUP")){
+                String currentDate = DateUtils.getCurrentDate();
+
+                String message = plugin.getConfig().getString("logger.messages.VIOLATION_PICKUP")
+                        .replace("%date%", currentDate)
+                        .replace("%player%", player.getName()
+                                .replace("%item%", itemMaterial.toString()));
+
+                LogHandler.logData(message);
             }
         }
     }

@@ -3,6 +3,7 @@ org\vdevs\opmodifier\Events\ItemUseEvent.class
 org\vdevs\opmodifier\Utils\ActionDeserializer.class
 org\vdevs\opmodifier\Events\PlayerChatEvent.class
 org\vdevs\opmodifier\Events\BlockPlaceEvent.class
+org\vdevs\opmodifier\Handlers\LogHandler.class
 org\vdevs\opmodifier\Events\BlockBreakEvent.class
 org\vdevs\opmodifier\Events\ItemPickupEvent.class
 org\vdevs\opmodifier\Events\InventoryClickEvent.class
@@ -10,5 +11,6 @@ org\vdevs\opmodifier\Handlers\UpdateHandler.class
 org\vdevs\opmodifier\Helpers\PlayerHelper.class
 org\vdevs\opmodifier\Events\ItemDropEvent.class
 org\vdevs\opmodifier\Events\CommandEvent.class
+org\vdevs\opmodifier\Utils\DateUtils.class
 org\vdevs\opmodifier\Commands\OPModifyCommand.class
 org\vdevs\opmodifier\Events\PlayerTeleportEvent.class

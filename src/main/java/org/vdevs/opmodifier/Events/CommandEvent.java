@@ -6,11 +6,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.vdevs.opmodifier.Handlers.LogHandler;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
 import org.vdevs.opmodifier.OPModifier;
+import org.vdevs.opmodifier.Utils.DateUtils;
 
 public class CommandEvent implements Listener {
-
     private OPModifier plugin;
     public CommandEvent(OPModifier plugin) {
         this.plugin = plugin;
@@ -29,6 +30,16 @@ public class CommandEvent implements Listener {
                     .replace("%player%", e.getPlayer().getName());
 
             plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), punishCommand);
+        }
+        if(plugin.getConfig().getBoolean("logger.status.VIOLATION_COMMAND")){
+            String currentDate = DateUtils.getCurrentDate();
+
+            String message = plugin.getConfig().getString("logger.messages.VIOLATION_COMMAND")
+                    .replace("%date%", currentDate)
+                    .replace("%player%", e.getPlayer().getName())
+                    .replace("%command%", msg);
+
+            LogHandler.logData(message);
         }
     }
 }

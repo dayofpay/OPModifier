@@ -5,9 +5,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.vdevs.opmodifier.Handlers.LogHandler;
 import org.vdevs.opmodifier.OPModifier;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
 import org.vdevs.opmodifier.Utils.ActionDeserializer;
+import org.vdevs.opmodifier.Utils.DateUtils;
 
 public class InventoryClickEvent implements Listener {
     private final OPModifier plugin;
@@ -42,6 +44,15 @@ public class InventoryClickEvent implements Listener {
                             .replace("%player%", player.getName());
                     plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), punishCommand);
                 }
+                if(plugin.getConfig().getBoolean("logger.status.VIOLATION_INVENTORY_INTERACT")){
+                    String currentDate = DateUtils.getCurrentDate();
+
+                    String message = plugin.getConfig().getString("logger.messages.VIOLATION_INVENTORY_INTERACT")
+                            .replace("%date%", currentDate)
+                            .replace("%player%", player.getName());
+
+                    LogHandler.logData(message);
+                }
             }
         }
     }
@@ -59,7 +70,15 @@ public class InventoryClickEvent implements Listener {
                         .replace("%player%", player.getName())
                         .replace("%item%", event.getItem().getType().toString()));
 
+                if(plugin.getConfig().getBoolean("logger.status.VIOLATION_INVENTORY_INTERACT")){
+                    String currentDate = DateUtils.getCurrentDate();
 
+                    String message = plugin.getConfig().getString("logger.messages.VIOLATION_INVENTORY_INTERACT")
+                            .replace("%date%", currentDate)
+                            .replace("%player%", player.getName());
+
+                    LogHandler.logData(message);
+                }
             }
         }
     }

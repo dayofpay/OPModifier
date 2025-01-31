@@ -10,7 +10,6 @@ import org.vdevs.opmodifier.Handlers.LogHandler;
 import org.vdevs.opmodifier.Helpers.PlayerHelper;
 import org.vdevs.opmodifier.OPModifier;
 import org.vdevs.opmodifier.Utils.DateUtils;
-
 public class CommandEvent implements Listener {
     private OPModifier plugin;
     public CommandEvent(OPModifier plugin) {

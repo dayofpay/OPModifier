@@ -30,4 +30,9 @@ public class ActionDeserializer {
 
         return whitelistedPlayers.contains(player);
     }
+    public boolean isBlockedWorldEdit(final String worldName) {
+        List<String> blockedWorlds = plugin.getConfig().getStringList("blocked_worldedit_worlds");
+
+        return blockedWorlds.contains(worldName);
+    }
 }

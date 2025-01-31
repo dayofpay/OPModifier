@@ -9,6 +9,7 @@ org\vdevs\opmodifier\Events\ItemPickupEvent.class
 org\vdevs\opmodifier\Events\InventoryClickEvent.class
 org\vdevs\opmodifier\Handlers\UpdateHandler.class
 org\vdevs\opmodifier\Helpers\PlayerHelper.class
+org\vdevs\opmodifier\Events\WorldEditEvent.class
 org\vdevs\opmodifier\Events\ItemDropEvent.class
 org\vdevs\opmodifier\Events\CommandEvent.class
 org\vdevs\opmodifier\Utils\DateUtils.class

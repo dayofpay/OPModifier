@@ -66,6 +66,8 @@ messages:
   not_allowed_to_chat: "&c%player% , you are not allowed to chat !"
   # Message displayed when an error occurs while executing the plugin.
   plugin_exception: "&cAn error occurred while executing the plugin. Please check the console for more details."
+  # Message displayed when the player is not allowed to use worldedit in the current world.
+  worldedit_block: "&c&oYou are not allowed to use worldedit in this world !"
 
 # Configuration for the logger module of the plugin. This section controls
 # how violations are logged and whether logging is enabled for specific violation types.
@@ -181,11 +183,13 @@ blocked_actions:
   - ItemPickUp           # Blocks players from picking up specific items.
   - ItemDrop             # Blocks players from dropping specific items.
   - InventoryClick       # Blocks players from interacting with their inventory.
+  - WorldEdit       # Blocks players from using WorldEdit in the current world. ( Configure the worlds bellow )
   #- PlayerTeleport       # Blocks players from teleporting.
   #- PlayerChat           # Blocks players from chatting.
-
 # Blocked Items Section:
 # These lists define the specific items that are blocked in various player interactions.
+blocked_worldedit_worlds:
+  - world
 blocked_items_use:
   # List of items that players are not allowed to use (e.g., consuming).
   - GOLDEN_APPLE  # Players cannot eat or use golden apples.
